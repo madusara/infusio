@@ -10,6 +10,28 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  
+  /* Custom Colors */
+  --color-black: #000000;
+  --color-brown-200: #FCBA63;
+  --color-brown-500: #536036;
+  --color-green-200: #A1B076;
+  --color-green-500: #536036;
+  --color-neutral-200: #F7EDDB;
+  --color-neutral-100: #fffbf5;
+  --color-success: #50BE5B;
+  --color-danger: #E54949;
+  --color-danger-10: #E549491A;
+  --color-danger-50: #E5494980;
+  --color-error: #FEF0F0;
+  --color-warn: #F0A727;
+  --color-info: #4B96E1;
+  
+  /* Custom Fonts */
+  --font-family-poppins: 'Poppins', sans-serif;
+  
+  /* Custom Screen */
+  --breakpoint-1\.5xl: 1366px;
 }
 
 @media (prefers-color-scheme: dark) {
