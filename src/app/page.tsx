@@ -1,4 +1,4 @@
-import { MainNav } from "@/components";
+import { MainNav, ShopBanner } from "@/components";
 import { TopHero } from "@/components/TopHero";
 
 export default function Home() {
@@ -7,6 +7,7 @@ export default function Home() {
       <main className="min-h-screen w-full bg-white sm:items-start border">
         <MainNav />
         <TopHero />
+        <ShopBanner />
       </main>
     </div>
   );
