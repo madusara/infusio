@@ -1,25 +1,28 @@
 import Image from "next/image";
-import Link from "next/link";
+import { NavLink } from "./NavLink";
+import { ShoppingCartIcon } from "lucide-react";
+import { Button } from "../ui/button";
 
 const MainNav = () => {
   return (
-    <div className="flex justify-between items-center w-full bg-neutral-100">
+    <div className="flex justify-between items-center w-full bg-green-200 p-8 py-12">
       <div>
         <Image
-          src="/assets/images/eg-logo.png"
+          src="/assets/images/eg-logo-white-cropped.png"
           alt="EG Logo"
-          width={180}
-          height={180}
+          width={120}
+          height={120}
+          className="bg-green-500 p-5 rounded-full"
         />
       </div>
       <div className="flex gap-6 text-xl font-semibold text-brown-500">
-        <Link href="/" className="text-brown-500">HOME</Link>
-        <Link href="/">OUR STORY</Link>
-        <Link href="/">RECIPES</Link>
-        <Link href="/">FAQ</Link>
-        <Link href="/">CONTACT US</Link>
+        <NavLink href="/">Home</NavLink>
+        <NavLink href="/">Our story</NavLink>
+        <NavLink href="/">Recipes</NavLink>
+        <NavLink href="/">FAQ</NavLink>
+        <NavLink href="/">Contact us</NavLink>
       </div>
-      <div className="mr-12"><Image src="/assets/icons/cart.svg" alt="Cart" width={36} height={36} /></div>
+      <Button size="icon-lg" variant="link"><ShoppingCartIcon className="text-white size-8" /></Button>
     </div>
   );
 };

@@ -4,6 +4,7 @@ import Image from "next/image";
 
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
+import { HeroCarouselItem } from "../HeroCarouselItem";
 
 const TopHero = () => {
   return (
@@ -55,40 +56,16 @@ const TopHero = () => {
         slidesToSlide={1}
         swipeable
       >
-        <div className="relative" style={{ height: "calc(100vh - 180px)" }}>
-          <div className="absolute bottom-0 p-10 pt-20 left-0 bg-linear-to-t from-black/80 to-transparent w-full">
-            <h1 className="text-8xl font-bold text-white ">
-              Infusio Chai elixir
-            </h1>
-            <div className="mt-2 mb-4 text-4xl font-bold text-white">
-              Your Daily Ritual, Reimagined in Chai.
-            </div>
-          </div>
-          <Image
-            src="/assets/images/chai-banner-1.jpg"
-            alt="Carousel slide 2"
-            width={1000}
-            height={100}
-            className="w-full h-full object-cover block"
-          />
-        </div>
-        <div className="relative" style={{ height: "calc(100vh - 180px)" }}>
-          <div className="absolute bottom-0 p-10 pt-20 left-0 bg-linear-to-t from-black/80 to-transparent w-full">
-            <h1 className="text-8xl font-bold text-white ">
-              Infusio Ginger elixir
-            </h1>
-            <div className="mt-2 mb-4 text-4xl font-bold text-white">
-              Zest, Warmth, and Wellness in a Bottle.
-            </div>
-          </div>
-          <Image
-            src="/assets/images/ginger-banner-1.jpg"
-            alt="Carousel slide 2"
-            width={1000}
-            height={100}
-            className="w-full h-full object-cover block"
-          />
-        </div>
+        <HeroCarouselItem
+          title="Infusio Chai elixir"
+          description="Your Daily Ritual, Reimagined in Chai."
+          image="/assets/images/chai-banner-1.jpg"
+        />
+        <HeroCarouselItem
+          title="Infusio Ginger elixir"
+          description="Zest, Warmth, and Wellness in a Bottle."
+          image="/assets/images/ginger-banner-1.jpg"
+        />
       </Carousel>
     </div>
   );
