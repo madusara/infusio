@@ -33,9 +33,9 @@ const CartPage = () => {
                     />
                   </div>
                   <div>
-                    <h2>{item.title}</h2>
+                    <h2 className="text-lg font-semibold">{item.title}</h2>
                     <p>{item.variant.size}</p>
-                    <p>{item.variant.price}</p>
+                    <p>Rs.{item.variant.price}</p>
                   </div>
                 </div>
                 <p className="col-span-2">{item.orderQuantity}</p>

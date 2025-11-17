@@ -50,8 +50,6 @@ const CartProvider = ({ children }: Props) => {
         const cartItemFound = availableProducts.find(
           (product) => product.id === cartItem.id && product.variants.find(variant => variant.size === cartItem.variant.size)
         );
-        console.log("cartItemFound", cartItemFound);
-        console.log("jsonSto", jsonStoredCart);
         if (cartItemFound)
           items.push({ ...cartItemFound, orderQuantity: cartItem.quantity, variant: cartItem.variant });
       });
@@ -77,7 +75,6 @@ const CartProvider = ({ children }: Props) => {
       const existingProductIndex = cartItems.findIndex(
         (cartItem) => cartItem.id === item.id && cartItem.variant.size === item.variant.size
       );
-      console.log("variant", item.variant);
       // Update state
       if (existingProductIndex > -1) {
         setCartItems((prevState) => [
@@ -119,10 +116,6 @@ const CartProvider = ({ children }: Props) => {
       }, 0),
     [cartItems]
   );
-
-  useEffect(() => {
-    console.log("cartItems", cartItems);
-  }, [cartItems]);
 
   const subTotal = useMemo(
     () => 
