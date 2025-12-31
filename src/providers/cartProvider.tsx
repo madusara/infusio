@@ -48,10 +48,18 @@ const CartProvider = ({ children }: Props) => {
     if (jsonStoredCart.length && availableProducts?.length) {
       jsonStoredCart.forEach((cartItem) => {
         const cartItemFound = availableProducts.find(
-          (product) => product.id === cartItem.id && product.variants.find(variant => variant.size === cartItem.variant.size)
+          (product) =>
+            product.id === cartItem.id &&
+            product.variants.find(
+              (variant) => variant.size === cartItem.variant.size
+            )
         );
         if (cartItemFound)
-          items.push({ ...cartItemFound, orderQuantity: cartItem.quantity, variant: cartItem.variant });
+          items.push({
+            ...cartItemFound,
+            orderQuantity: cartItem.quantity,
+            variant: cartItem.variant,
+          });
       });
 
       // set the cart items array (context) from whats received from the session storage
@@ -73,7 +81,8 @@ const CartProvider = ({ children }: Props) => {
     (item: CartItem) => {
       if (!item) return;
       const existingProductIndex = cartItems.findIndex(
-        (cartItem) => cartItem.id === item.id && cartItem.variant.size === item.variant.size
+        (cartItem) =>
+          cartItem.id === item.id && cartItem.variant.size === item.variant.size
       );
       // Update state
       if (existingProductIndex > -1) {
@@ -97,7 +106,9 @@ const CartProvider = ({ children }: Props) => {
 
   const removeItem = useCallback(
     (id: string, variant: { size: string; price: number }) => {
-      const indexToRemove = cartItems.findIndex((item) => item.id === id && item.variant.size === variant.size);
+      const indexToRemove = cartItems.findIndex(
+        (item) => item.id === id && item.variant.size === variant.size
+      );
       const updatedCart = [
         ...cartItems.slice(0, indexToRemove),
         ...cartItems.slice(indexToRemove + 1),
@@ -105,6 +116,49 @@ const CartProvider = ({ children }: Props) => {
 
       // Update state
       setCartItems(updatedCart);
+    },
+    [cartItems]
+  );
+
+  const incrementItemQuantity = useCallback(
+    (id: string, variant: { size: string; price: number }) => {
+      const indexToUpdate = cartItems.findIndex(
+        (item) => item.id === id && item.variant.size === variant.size
+      );
+      if (indexToUpdate > -1) {
+        const updatedCart = [
+          ...cartItems.slice(0, indexToUpdate),
+          {
+            ...cartItems[indexToUpdate],
+            orderQuantity: cartItems[indexToUpdate].orderQuantity + 1,
+          },
+          ...cartItems.slice(indexToUpdate + 1),
+        ];
+        setCartItems(updatedCart);
+      }
+    },
+    [cartItems]
+  );
+
+  const decrementItemQuantity = useCallback(
+    (id: string, variant: { size: string; price: number }) => {
+      const indexToUpdate = cartItems.findIndex(
+        (item) => item.id === id && item.variant.size === variant.size
+      );
+      if (indexToUpdate > -1) {
+        const currentQuantity = cartItems[indexToUpdate].orderQuantity;
+        if (currentQuantity > 1) {
+          const updatedCart = [
+            ...cartItems.slice(0, indexToUpdate),
+            {
+              ...cartItems[indexToUpdate],
+              orderQuantity: cartItems[indexToUpdate].orderQuantity - 1,
+            },
+            ...cartItems.slice(indexToUpdate + 1),
+          ];
+          setCartItems(updatedCart);
+        }
+      }
     },
     [cartItems]
   );
@@ -118,7 +172,7 @@ const CartProvider = ({ children }: Props) => {
   );
 
   const subTotal = useMemo(
-    () => 
+    () =>
       cartItems.reduce((acc, item) => {
         return acc + item.variant.price * item.orderQuantity;
       }, 0),
@@ -140,10 +194,21 @@ const CartProvider = ({ children }: Props) => {
       formattedSubTotal,
       itemCount,
       removeItem,
+      incrementItemQuantity,
+      decrementItemQuantity,
       resetCart,
       subTotal,
     }),
-    [cartItems, itemCount, subTotal, formattedSubTotal, addItem, removeItem]
+    [
+      cartItems,
+      itemCount,
+      subTotal,
+      formattedSubTotal,
+      addItem,
+      removeItem,
+      incrementItemQuantity,
+      decrementItemQuantity
+    ]
   );
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;

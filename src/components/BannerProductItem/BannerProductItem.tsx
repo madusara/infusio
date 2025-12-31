@@ -7,18 +7,21 @@ import SlidingPane from "react-sliding-pane";
 import "react-sliding-pane/dist/react-sliding-pane.css";
 import clsx from "clsx";
 import { XIcon } from "lucide-react";
+import { QuantityChanger } from "../QuantityChanger";
 
 type Props = {
   product: Product;
   addToCart: (
     product: Product,
-    variant: { size: string; price: number }
+    variant: { size: string; price: number },
+    quantity: number
   ) => void;
 };
 
 const BannerProductItem = ({ product, addToCart }: Props) => {
   const [isPaneOpen, setIsPaneOpen] = useState(false);
   const [selectedVariant, setSelectedVariant] = useState(product.variants[0]);
+  const [quantityToAdd, setQuantityToAdd] = useState(1);
   const [paneWidth, setPaneWidth] = useState("100%");
 
   useEffect(() => {
@@ -61,15 +64,15 @@ const BannerProductItem = ({ product, addToCart }: Props) => {
         hideHeader
       >
         <div>
-        <h2 className="text-2xl font-bold">Choose your volume</h2>
-        <Button
-          className="absolute right-4 top-4 font-bold"
-          size="icon"
-          variant="outline"
-          onClick={() => setIsPaneOpen(false)}
-        >
-          <XIcon className="w-4 h-4" />
-        </Button>
+          <h2 className="text-2xl font-bold">{`${product.title} - ${selectedVariant.size}`}</h2>
+          <Button
+            className="absolute right-4 top-4 font-bold"
+            size="icon"
+            variant="outline"
+            onClick={() => setIsPaneOpen(false)}
+          >
+            <XIcon className="w-4 h-4" />
+          </Button>
         </div>
         <div className="flex gap-4">
           <div className="mt-10 relative w-1/2 pt-[50%]">
@@ -90,10 +93,8 @@ const BannerProductItem = ({ product, addToCart }: Props) => {
           </div>
         </div>
         <div className="flex flex-col items-end">
-          <div className="mt-10 text-xl font-semibold">
-            {`${product.title} - ${selectedVariant.size}`}
-          </div>
-          <div className="mt-4 flex justify-end gap-1">
+          <div className="mt-10 text-lg font-semibold">Choose your volume</div>
+          <div className="mt-2 flex justify-end gap-1">
             {product.variants.map((variant) => (
               <Button
                 key={variant.size}
@@ -114,15 +115,22 @@ const BannerProductItem = ({ product, addToCart }: Props) => {
               </Button>
             ))}
           </div>
-          <div className="mt-4 text-xl font-bold">
-            Rs. {selectedVariant.price.toFixed(2)}
+          <div className="mt-6 text-lg font-semibold">Quantity:</div>
+          {/* <div className="mt-2 flex items-center gap-1">
+            <Button variant="secondary" onClick={() => setQuantityToAdd((prev) => Math.max(prev - 1, 1))}>-</Button>
+            <Button variant="secondary" disabled className="bg-green-200 text-white">{quantityToAdd}</Button>
+            <Button variant="secondary" onClick={() => setQuantityToAdd((prev) => prev + 1)}>+</Button>
+          </div> */}
+          <QuantityChanger quantity={quantityToAdd} onQuantityIncrement={() => setQuantityToAdd(prev => prev + 1)} onQuantityDecrement={() => setQuantityToAdd(prev => Math.max(prev - 1, 1))} />
+          <div className="mt-8 text-xl font-bold">
+            Rs. {(quantityToAdd * selectedVariant.price).toFixed(2)}
           </div>
           <Button
             className="mt-4 text-center font-bold min-w-40"
             size="lg"
             onClick={() => {
-              addToCart(product, selectedVariant)
-              setIsPaneOpen(false)
+              addToCart(product, selectedVariant, quantityToAdd);
+              setIsPaneOpen(false);
             }}
           >
             Add to Cart

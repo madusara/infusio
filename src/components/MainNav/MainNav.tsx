@@ -30,10 +30,6 @@ const MainNav = () => {
     setBarPaddingY(layoutSegment === null ? 12 : 1);
   }, [layoutSegment])
 
-  useEffect(() => {
-    console.log("scrollY", barPaddingY);
-  }, [barPaddingY])
-
   return (
     <div
       className={clsx(

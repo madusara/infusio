@@ -54,9 +54,9 @@ const ShopBanner = () => {
 
   const { addItem } = useCartContext();
 
-  const handleAddToCart = (product: Product, variant: { size: string; price: number }) => {
+  const handleAddToCart = (product: Product, variant: { size: string; price: number }, quantity: number) => {
     // console.log("variant 1", { ...product, orderQuantity: 1, variant: variant });
-    if (product) addItem({ ...product, orderQuantity: 1, variant: variant });
+    if (product) addItem({ ...product, orderQuantity: quantity ?? 1, variant: variant });
   };
 
   return (

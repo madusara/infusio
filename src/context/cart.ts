@@ -8,6 +8,8 @@ type CartState = {
   formattedSubTotal: string;
   itemCount: number;
   removeItem: (id: string, variant: { size: string; price: number }) => void;
+  incrementItemQuantity: (id: string, variant: { size: string; price: number }) => void;
+  decrementItemQuantity: (id: string, variant: { size: string; price: number }) => void;
   resetCart: () => void;
   subTotal: number;
 };
@@ -24,7 +26,9 @@ const CartContext = createContext<CartState>({
   cartItems: CartInitValues.cartItems,
   formattedSubTotal: CartInitValues.formattedSubTotal,
   itemCount: CartInitValues.itemCount,
-  removeItem: (id: string) => {}, // eslint-disable-line
+  removeItem: (id: string, variant: { size: string; price: number }) => {}, // eslint-disable-line
+  incrementItemQuantity: (id: string, variant: { size: string; price: number }) => {},
+  decrementItemQuantity: (id: string, variant: { size: string; price: number }) => {},
   resetCart: () => {},
   subTotal: CartInitValues.subTotal
 });
