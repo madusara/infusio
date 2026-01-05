@@ -1,12 +1,7 @@
-import { Product } from "./product";
+import { z } from "zod";
+import { cartItemInSessionStorageSchema } from "./schema";
+import { CartItemSchema } from "./schema/CartSchema";
 
-export interface CartItemInSessionStorage {
-  id: string;
-  quantity: number;
-  variant: { size: string; price: number };
-}
+export type CartItemInSessionStorage = z.infer<typeof cartItemInSessionStorageSchema>;
 
-export interface CartItem extends Product {
-  orderQuantity: number;
-  variant: { size: string; price: number };
-}
+export type CartItem = z.infer<typeof CartItemSchema>;

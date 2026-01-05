@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/ui";
 import { ShoppingCartIcon } from "lucide-react";
 import { useCartContext } from "@/hooks";
 import Link from "next/link";

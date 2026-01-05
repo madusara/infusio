@@ -1,4 +1,4 @@
-import { Button } from "../ui/button";
+import { Button } from "../ui";
 
 type Props = { quantity: number; onQuantityIncrement: () => void, onQuantityDecrement: () => void };
 

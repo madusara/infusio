@@ -1,7 +1,7 @@
 import React from "react";
 import { useCartContext } from "@/hooks";
 import Image from "next/image";
-import { Button } from "../ui/button";
+import { Button } from "../ui";
 import { TrashIcon } from "lucide-react";
 import { QuantityChanger } from "../QuantityChanger";
 import { CartItem as CartItemType } from "@/types";
